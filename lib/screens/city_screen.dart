@@ -52,6 +52,17 @@ class _CityScreenState extends State<CityScreen> {
                             color: Colors.white,
                           ),
                         )),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pop(
+                          context,
+                          CityName,
+                        );
+                      },
+                      icon: Icon(Icons.find_in_page),
+                      color: Colors.white,
+                      iconSize: 50,
+                    )
                   ],
                 ),
               ),

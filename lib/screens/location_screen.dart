@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:weather/screens/loading_screen.dart';
 import 'package:weather/services/weather.dart';
 
 import 'city_screen.dart';
@@ -83,11 +81,6 @@ class _LocationScreenState extends State<LocationScreen> {
                 children: [
                   IconButton(
                       onPressed: () async {
-                        await Get.to(() => LoadingScreen());
-                      },
-                      icon: Icon(Icons.add)),
-                  IconButton(
-                      onPressed: () async {
                         var weatherdata =
                             await WeatherModel().GetLocationWeather();
                         UpdateUi(weatherdata);
@@ -95,12 +88,19 @@ class _LocationScreenState extends State<LocationScreen> {
                       icon: Icon(Icons.near_me)),
                   IconButton(
                       onPressed: () async {
-                        var typedword = await Navigator.push(context,
+                        var typedWord = await Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
                           return CityScreen();
                         }));
-                        //var typedword = Get.to(() => CityScreen());
-                        print(' $typedword passed to location screen');
+                        // var typedWord = Get.to(() => CityScreen());
+
+                        if (typedWord != null) {
+                          WeatherModel weather = WeatherModel();
+                          var weatherData =
+                              await weather.CityWeather(typedWord);
+                          UpdateUi(weatherData);
+                          //  print(' $typedWord passed to location screen & not null');
+                        }
                       },
                       icon: Icon(Icons.location_city)),
                 ],
