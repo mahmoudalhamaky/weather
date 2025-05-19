@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weather/screens/loading_screen.dart';
@@ -14,9 +13,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-
-      home:  LoadingScreen(),
+      home: LoadingScreen(),
     );
   }
 }
-

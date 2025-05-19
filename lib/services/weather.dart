@@ -1,8 +1,24 @@
-import 'package:http/http.dart';
+import 'location.dart';
+import 'networking.dart';
 
+const String apiKey = '5756d6ea14023a2485674d1d7751faff#';
+const OpenweatherMapUrl = 'https://api.openweathermap.org/data/2.5/weather';
+var weatherData;
+
+class WeatherModel {
+  Future<dynamic> GetLocationWeather() async {
+    Location myLocation = Location();
+    await myLocation.CurrentLocation();
+    NetworkHelper netwokHelper = NetworkHelper(
+        '$OpenweatherMapUrl?lat=${myLocation.lat}&lon=${myLocation.long}&appid=$apiKey&units=metric');
+    weatherData = await netwokHelper.GetData();
+    print('${myLocation.timeNow}');
+    return weatherData;
+  }
+}
 // https://api.openweathermap.org/data/2.5/weather?lat=29.9794432&lon=31.2868864&appid=5756d6ea14023a2485674d1d7751faff#
 
-  //https://api.openweathermap.org/data/2.5/weather?lat=29.9794432&lon=31.2868864&appid=5756d6ea14023a2485674d1d7751faff#&units=metric
+//https://api.openweathermap.org/data/2.5/weather?lat=29.9794432&lon=31.2868864&appid=5756d6ea14023a2485674d1d7751faff#&units=metric
 // late = 29.9794432
 // lan = 31.2868864
 
@@ -16,12 +32,10 @@ import 'package:http/http.dart';
 // 2025-05-08 11:58:30.645
 // 31.2573952 and 29.9630592
 
-
 // Hourly forecast: unavailable
 // Daily forecast: unavailable
 // Calls per minute: 60
 // 3 hour forecast: 5 days
-
 
 // { "cod": 429,
 // "message": "Your account is temporary blocked due to exceeding of requests limitation of your subscription type.

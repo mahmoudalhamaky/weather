@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:weather/services/location.dart';
-import 'package:weather/services/networking.dart';
 
+import '../services/weather.dart';
 import 'location_screen.dart';
 
 class LoadingScreen extends StatefulWidget {
@@ -23,19 +22,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
     color: Colors.deepPurple,
     size: 50.0,
   );
-  late var weather;
-  static const String apiKey = '5756d6ea14023a2485674d1d7751faff#';
 
   Future<void> GetLocationData() async {
-    Location myLocation = Location();
-
-    await myLocation.CurrentLocation();
-
-    NetworkHelper netwokHelper = NetworkHelper(
-        'https://api.openweathermap.org/data/2.5/weather?lat=${myLocation.lat}&lon=${myLocation.long}&appid=$apiKey&units=metric');
-    weather = await netwokHelper.GetData();
-
-    print('${myLocation.timeNow}');
+    weatherData = await WeatherModel().GetLocationWeather();
   }
 
   // void move (){ Get.to(()=>LocationScreen(locationWeather: weather,));}
@@ -68,7 +57,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                   //print('$long and $lat');
                   //print('$weather');
                   Get.to(() => LocationScreen(
-                        locationWeather: weather,
+                        locationWeather: weatherData,
                       ));
                 } catch (e) {
                   print('$e');
